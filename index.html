@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpotCompiled</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1DB954, #1ED760);
+            color: #333;
+        }
+
+        .jump-button {
+            background-color: #179744;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .jump-button:hover {
+            background-color: #1dda63;
+            /* Darker Green */
+        }
+
+        .header {
+            background: #191414;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            margin-top: 0;
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .link-item {
+            text-align: center;
+            flex: 0 1 calc(33.333% - 20px);
+            /* Adjusted flex property */
+            max-width: calc(33.333% - 20px);
+            /* Adjusted max-width property */
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            transition: box-shadow 0.3s;
+            position: relative;
+            margin-bottom: 20px;
+            /* Add margin-bottom to create space between rows */
+        }
+
+        .link-item:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .link-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 20%;
+        }
+
+        .link-item h3 {
+            margin: 10px 0 5px;
+        }
+
+        .notice {
+            color: red;
+            font-weight: bold;
+        }
+
+        .screenshots {
+            display: flex;
+            overflow-x: auto;
+            overflow-y: hidden;
+            margin: 10px 0;
+            height: 500px;
+            /* Adjust height as needed */
+        }
+
+        .screenshots img {
+            height: 500px;
+            width: 450px;
+            margin-right: 10px;
+            border-radius: 10% !important;
+        }
+
+        .changelog {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 0.9em;
+        }
+
+        .credits {
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+    <script>
+        // JavaScript function to handle smooth scrolling
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+    <script>
+        async function fetchChangelog(repo, elementId) {
+            const url = `https://api.github.com/repos/SpotCompiled/${repo}/releases/latest`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const changelogElement = document.getElementById(elementId);
+
+                // Remove "<details>...</details>" portion from the changelog
+                let cleanChangelog = data.body.replace(/<details>[\s\S]*?<\/details>/g, '');
+
+                // Remove everything after "***"
+                const endIndex = cleanChangelog.indexOf('***');
+                if (endIndex !== -1) {
+                    cleanChangelog = cleanChangelog.substring(0, endIndex);
+                }
+
+                // Split the changelog text by newline and remove the first element
+                const changelogLines = cleanChangelog.split('\n');
+                changelogLines.shift(); // Remove the first line containing "## ChangeLog - "
+
+                const htmlChangelog = changelogLines.join('<br>');
+
+                // Convert markdown links to HTML links
+                const finalHtmlChangelog = htmlChangelog.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2">$1</a>');
+
+                changelogElement.innerHTML = `<strong>Changelog:</strong><br>${finalHtmlChangelog}`;
+            } catch (error) {
+                console.error('Error fetching changelog:', error);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchChangelog('SpotC-Plus-Plus', 'changelog-spotcpp');
+            fetchChangelog('SpotveeC', 'changelog-spotveec');
+            fetchChangelog('SpotilifeC', 'changelog-spotilifec');
+        });
+    </script>
+
+
+
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>SpotCompiled</h1>
+        <p>Compiled Spotify IPAs with enhanced features</p>
+        <button class="jump-button" onclick="scrollToSection('about-section')">About SpotCompiled</button>
+        <button class="jump-button" onclick="scrollToSection('apps-section')">Apps</button>
+        <button class="jump-button" onclick="scrollToSection('adding-section')">Adding to AltStore/SideStore</button>
+        <button class="jump-button" onclick="scrollToSection('credits-section')">Credits</button>
+    </div>
+
+    <div class="container">
+
+        <div class="section">
+            <div class="section" id="about-section">
+                <h2>About SpotCompiled</h2>
+                <p>SpotCompiled provides compiled Spotify IPAs with various enhancements, including ad-free experiences, unlimited skips, and more. The main projects include SpotC++, SpotveeC, and SpotilifeC.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section" id="apps-section">
+                <h2>Apps</h2>
+                <div class="links">
+                    <div class="link-item">
+                        <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/SpotC++%20AppIcon.png" alt="SpotC++ Icon">
+                        <h3>SpotC++</h3>
+                        <p>The ultimate compilation of Spotify enhancements.</p>
+                        <a href="https://github.com/SpotCompiled/SpotC-Plus-Plus/releases">Download SpotC++</a>
+                        <div class="screenshots">
+                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%201.png" alt="Screenshot 1">
+                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%202.png" alt="Screenshot 2">
+                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%203.png" alt="Screenshot 3">
+                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%204.png" alt="Screenshot 4">
+                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Sposify%20Settings%201.png" alt="Settings Screenshot 1">
+                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Sposify%20Settings%202.png" alt="Settings Screenshot 2">
+                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Sposify%20Car%20Mode.png" alt="Car Mode Screenshot">
+                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20Playing%20SS.png" alt="Spotilife Playing Screenshot">
+                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20PlayList%20SS.png" alt="Spotilife Playlist Screenshot">
+                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20Library%20View%20SS.png" alt="Spotilife Library View Screenshot">
+                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Sposify%20Lyrics%20Screen.png" alt="Sposify Lyrics Screen Screenshot">
+
+                        </div>
+                        <div class="changelog" id="changelog-spotcpp">Loading changelog...</div>
+                    </div>
+                    <div class="link-item">
+                        <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/SpotilifeC%20AppIcon.png" alt="SpotveeC Icon">
+                        <h3>SpotveeC</h3>
+                        <p>Experience enhanced Spotify features with SpotveeC.</p>
+                        <a href="https://github.com/SpotCompiled/SpotveeC/releases">Download SpotveeC</a>
+                        <div class="screenshots">
+                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%201.png" alt="Screenshot 1">
+                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%202.png" alt="Screenshot 2">
+                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%203.png" alt="Screenshot 3">
+                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%204.png" alt="Screenshot 4">
+                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20Playing%20SS.png" alt="Playing Screenshot">
+                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20PlayList%20SS.png" alt="Playlist Screenshot">
+                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20Library%20View%20SS.png" alt="Library View Screenshot">
+
+                        </div>
+                        <div class="changelog" id="changelog-spotveec">Loading changelog...</div>
+                    </div>
+                    <div class="link-item">
+                        <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/SpotilifeC%20AppIcon.png" alt="SpotilifeC Icon">
+                        <h3>SpotilifeC</h3>
+                        <p>Enjoy Spotify without ads and with unlimited skips.</p>
+                        <p class="notice">Notice: SpotilifeC is outdated. We recommend using SpotveeC instead.</p>
+                        <a href="https://github.com/SpotCompiled/SpotilifeC/releases">Download SpotilifeC</a>
+                        <div class="screenshots">
+                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20Playing%20SS.png" alt="Screenshot 1">
+                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20PlayList%20SS.png" alt="Screenshot 2">
+                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20Library%20View%20SS.png" alt="Screenshot 3">
+                        </div>
+                        <div class="changelog" id="changelog-spotilifec">Loading changelog...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section" id="adding-section">
+                <h2>Adding to AltStore/SideStore</h2>
+                <p>You can add our repository to AltStore or SideStore for automatic updates and convenience. Follow the steps below:</p>
+                <ol>
+                    <li>Tap "Sources" in the top-right corner of the Browse tab.</li>
+                    <li>Tap the "+" button and add the source URL: <a href="https://tiny.one/SpotC">https://tiny.one/SpotC</a></li>
+                    <li>Now any "SpotC" apps will show up in AltStore/SideStore under the "Browse" tab.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="section credits">
+            <div class="section" id="credits-section">
+                <h2>Credits</h2>
+                <p>Special thanks to the following for their contributions:</p>
+                <ul>
+                    <li><a href="https://armconverter.com/decryptedappstore/us/spotify">IOS God's Dycrypted App Store</a> and <a href="https://appdb.to/app/ios/324684580">AppDB</a> - <em>Dycrypted Vanilla Spotify IPA</em></li>
+                    <li><a href="https://julio.hackyouriphone.org/">julioverne-  Spotilife</a> - <em>For Spotilife tweaked .deb</em></li>
+                    <li><a href="https://github.com/whoeevee/EeveeSpotify">Whoeevee-  EeveeSpotify</a> - <em>For EeveeSpotify tweaked .deb</em></li>
+                    <li><a href="https://repo.dynastic.co/package/com.spos">aesthyrica- Sposify</a> - <em>For Sposify tweaked  .deb</em></li>
+                    <li><a href="https://chariz.com/get/orion-runtime14">Theos Team-  Orion Runtime (iOS 14 - 16)</a> - <em>For Orion Runtime (iOS 14 - 16) tweaked .deb</em></li>
+                    <li><a href="https://github.com/apple/swift-protobuf">Apple inc.-  Swift Protobuf</a></li>
+                    <li><a href="https://level3tjg.me/repo/">level3tjg- Sposify Fix</a> - <em>For Sposify Fix tweaked  .deb</em></li>
+                    <li><a href="https://appdb.to/app/cydia/1900000540">Am1nCmd- Spotify++</a> - <em>For ScreenShots</em></li>
+                    <li><a href="https://github.com/RobyRew">@RobyRew</a> - <em>For helping me setup a lot of things</em></li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="section">
+        <div class="section" id="disclaimer-section">
+            <p>We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with any other company, agency, or government agency. All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.</p>
+        </div>
+    </div>
+
+</body>
+
+</html>
