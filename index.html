@@ -63,6 +63,22 @@
             flex-wrap: wrap;
         }
 
+        .fancy-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .fancy-button:hover {
+            background-color: #45a049;
+        }
+
         .link-item {
             text-align: center;
             flex: 0 1 calc(33.333% - 20px);
@@ -138,34 +154,41 @@
         }
     </script>
     <script>
-        async function fetchChangelog(repo, elementId) {
+        async function fetchChangelog(repo, elementId, downloadButtonId) {
             const url = `https://api.github.com/repos/SpotCompiled/${repo}/releases/latest`;
             try {
                 const response = await fetch(url);
                 const data = await response.json();
                 const changelogElement = document.getElementById(elementId);
-        
+
                 // Extract latest version
                 const latestVersion = data.tag_name;
-        
+
+                // Extract download URL for IPA file
+                const downloadUrl = data.assets.find(asset => asset.name.endsWith('.ipa')).browser_download_url;
+
                 // Remove "<details>...</details>" portion from the changelog
                 let cleanChangelog = data.body.replace(/<details>[\s\S]*?<\/details>/g, '');
-        
+
                 // Remove everything after "***"
                 const endIndex = cleanChangelog.indexOf('***');
                 if (endIndex !== -1) {
                     cleanChangelog = cleanChangelog.substring(0, endIndex);
                 }
-        
+
                 // Split the changelog text by newline and remove the first element
                 const changelogLines = cleanChangelog.split('\n');
                 changelogLines.shift(); // Remove the first line containing "## ChangeLog - "
-        
+
                 const htmlChangelog = changelogLines.join('<br>');
-        
+
                 // Convert markdown links to HTML links
                 const finalHtmlChangelog = htmlChangelog.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2">$1</a>');
-        
+
+                // Update download button with latest release URL
+                const downloadButton = document.getElementById(downloadButtonId);
+                downloadButton.href = downloadUrl;
+
                 // Update HTML content with latest version and changelog
                 changelogElement.innerHTML = `<strong>Version ${latestVersion} </strong><strong>Changelog:</strong><br>${finalHtmlChangelog}`;
             } catch (error) {
@@ -173,9 +196,9 @@
             }
         }
         document.addEventListener('DOMContentLoaded', () => {
-            fetchChangelog('SpotC-Plus-Plus', 'changelog-spotcpp');
-            fetchChangelog('SpotveeC', 'changelog-spotveec');
-            fetchChangelog('SpotilifeC', 'changelog-spotilifec');
+            fetchChangelog('SpotC-Plus-Plus', 'changelog-spotcpp', 'download-button-spotcpp');
+            fetchChangelog('SpotveeC', 'changelog-spotveec', 'download-button-spotveec');
+            fetchChangelog('SpotilifeC', 'changelog-spotilifec', 'download-button-spotilifec');
         });
     </script>
 
@@ -211,7 +234,7 @@
                         <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/SpotC++%20AppIcon.png" alt="SpotC++ Icon">
                         <h3>SpotC++</h3>
                         <p>The ultimate compilation of Spotify enhancements.</p>
-                        <a href="https://github.com/SpotCompiled/SpotC-Plus-Plus/releases">Download SpotC++</a>
+                        <a id="download-button-spotcpp" class="download-button fancy-button" href="#">Download SpotC++</a>
                         <div class="screenshots">
                             <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%201.png" alt="Screenshot 1">
                             <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%202.png" alt="Screenshot 2">
@@ -232,7 +255,7 @@
                         <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/SpotilifeC%20AppIcon.png" alt="SpotveeC Icon">
                         <h3>SpotveeC</h3>
                         <p>Experience enhanced Spotify features with SpotveeC.</p>
-                        <a href="https://github.com/SpotCompiled/SpotveeC/releases">Download SpotveeC</a>
+                        <a id="download-button-spotveec" class="download-button fancy-button" href="#">Download SpotveeC</a>
                         <div class="screenshots">
                             <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%201.png" alt="Screenshot 1">
                             <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%202.png" alt="Screenshot 2">
@@ -250,7 +273,7 @@
                         <h3>SpotilifeC</h3>
                         <p>Enjoy Spotify without ads and with unlimited skips.</p>
                         <p class="notice">Notice: SpotilifeC is outdated. We recommend using SpotveeC instead.</p>
-                        <a href="https://github.com/SpotCompiled/SpotilifeC/releases">Download SpotilifeC</a>
+                        <a id="download-button-spotilifec" class="download-button fancy-button" href="#">Download SpotilifeC</a>
                         <div class="screenshots">
                             <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20Playing%20SS.png" alt="Screenshot 1">
                             <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20PlayList%20SS.png" alt="Screenshot 2">
@@ -303,3 +326,4 @@
 </body>
 
 </html>
+changelogElement.innerHTML = `<strong>Version ${latestVersion} </strong><strong>Changelog:</strong><br>${finalHtmlChangelog}`;
