@@ -58,9 +58,6 @@
             margin-top: 0;
         }
 
-        .links {
-            display: flex;
-            flex-wrap: wrap;
         }
 
         .fancy-button {
@@ -79,19 +76,32 @@
             background-color: #45a049;
         }
 
+
+        .links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(calc(33.333% - 40px), 1fr));
+            grid-gap: 20px;
+        }
+
         .link-item {
             text-align: center;
-            flex: 0 1 calc(33.333% - 20px);
-            /* Adjusted flex property */
-            max-width: calc(33.333% - 20px);
-            /* Adjusted max-width property */
             background: #f9f9f9;
             padding: 20px;
             border-radius: 8px;
             transition: box-shadow 0.3s;
             position: relative;
-            margin-bottom: 20px;
-            /* Add margin-bottom to create space between rows */
+        }
+
+        @media (max-width: 1000px) {
+            .links {
+                grid-template-columns: repeat(auto-fill, minmax(calc(50% - 40px), 1fr));
+            }
+        }
+
+        @media (max-width: 675px) {
+            .links {
+                grid-template-columns: repeat(auto-fill, minmax(calc(100% - 40px), 1fr));
+            }
         }
 
         .link-item:hover {
@@ -119,7 +129,6 @@
             overflow-y: hidden;
             margin: 10px 0;
             height: 500px;
-            /* Adjust height as needed */
         }
 
         .screenshots img {
