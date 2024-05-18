@@ -144,26 +144,30 @@
                 const response = await fetch(url);
                 const data = await response.json();
                 const changelogElement = document.getElementById(elementId);
-
+        
+                // Extract latest version
+                const latestVersion = data.tag_name;
+        
                 // Remove "<details>...</details>" portion from the changelog
                 let cleanChangelog = data.body.replace(/<details>[\s\S]*?<\/details>/g, '');
-
+        
                 // Remove everything after "***"
                 const endIndex = cleanChangelog.indexOf('***');
                 if (endIndex !== -1) {
                     cleanChangelog = cleanChangelog.substring(0, endIndex);
                 }
-
+        
                 // Split the changelog text by newline and remove the first element
                 const changelogLines = cleanChangelog.split('\n');
                 changelogLines.shift(); // Remove the first line containing "## ChangeLog - "
-
+        
                 const htmlChangelog = changelogLines.join('<br>');
-
+        
                 // Convert markdown links to HTML links
                 const finalHtmlChangelog = htmlChangelog.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2">$1</a>');
-
-                changelogElement.innerHTML = `<strong>Changelog:</strong><br>${finalHtmlChangelog}`;
+        
+                // Update HTML content with latest version and changelog
+                changelogElement.innerHTML = `<strong>Version ${latestVersion} </strong><strong>Changelog:</strong><br>${finalHtmlChangelog}`;
             } catch (error) {
                 console.error('Error fetching changelog:', error);
             }
