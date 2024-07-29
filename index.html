@@ -225,6 +225,18 @@
                 top: 10px;
                 left: 10px;
             }
+            
+            .github-icon img {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+            }
+            
+            @media (prefers-color-scheme: light) {
+                .github-icon img {
+                    filter: invert(1);
+                }
+            }
         }
     </style>
     <script>
@@ -293,8 +305,9 @@
 
 <body>
     <a href="https://github.com/SpotCompiled" class="github-icon" target="_blank">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
     </a>
+
 
 
     <div class="header">
