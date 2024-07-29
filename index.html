@@ -220,6 +220,11 @@
                 background: #000000;
                 color: #aaa;
             }
+            .github-icon {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+            }
         }
     </style>
     <script>
@@ -245,7 +250,7 @@
                 const latestVersion = data.tag_name;
 
                 // Extract download URL for IPA file
-                const downloadUrl = data.assets.find(asset => asset.name.endsWith('.ipa')).browser_download_url;
+                const downloadUrl = data.assets.find(asset => asset.name.endsWith('.ipa') && !asset.name.includes('ALTSTORE')).browser_download_url;
 
                 // Remove "<details>...</details>" portion from the changelog
                 let cleanChangelog = data.body.replace(/<details>[\s\S]*?<\/details>/g, '');
@@ -287,6 +292,10 @@
 </head>
 
 <body>
+    <a href="https://github.com/SpotCompiled" class="github-icon" target="_blank">
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" width="30" height="30">
+    </a>
+
 
     <div class="header">
         <h1>SpotCompiled</h1>
