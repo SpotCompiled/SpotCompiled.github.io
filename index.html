@@ -245,18 +245,6 @@
         }
     </script>
     <script>
-        function invertIcon() {
-            const img = document.getElementById('github-icon-img');
-            const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches;
-            
-            if (isLightMode) {
-                img.style.filter = 'invert(1)';
-            }
-        }
-        
-        document.addEventListener('DOMContentLoaded', invertIcon);
-    </script>
-    <script>
         async function fetchChangelog(repo, elementId, downloadButtonId) {
             const url = `https://api.github.com/repos/SpotCompiled/${repo}/releases/latest`;
             try {
@@ -313,10 +301,7 @@
     <a href="https://github.com/SpotCompiled" class="github-icon" target="_blank">
         <img id="github-icon-img" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
     </a>
-
-
-
-
+    
     <div class="header">
         <h1>SpotCompiled</h1>
         <p>Compiled Spotify IPAs with enhanced features</p>
