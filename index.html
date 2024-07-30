@@ -231,12 +231,6 @@
                 height: 30px;
                 border-radius: 50%;
             }
-            
-            @media (prefers-color-scheme: light) {
-                .github-icon img {
-                    filter: invert(1);
-                }
-            }
         }
     </style>
     <script>
@@ -249,6 +243,18 @@
                 });
             }
         }
+    </script>
+    <script>
+        function invertIcon() {
+            const img = document.getElementById('github-icon-img');
+            const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches;
+            
+            if (isLightMode) {
+                img.style.filter = 'invert(1)';
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', invertIcon);
     </script>
     <script>
         async function fetchChangelog(repo, elementId, downloadButtonId) {
@@ -305,8 +311,9 @@
 
 <body>
     <a href="https://github.com/SpotCompiled" class="github-icon" target="_blank">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+        <img id="github-icon-img" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
     </a>
+
 
 
 
