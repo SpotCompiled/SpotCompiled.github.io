@@ -259,30 +259,37 @@
                 // Extract download URL for IPA file
                 const downloadUrl = data.assets.find(asset => asset.name.endsWith('.ipa') && !asset.name.includes('ALTSTORE')).browser_download_url;
 
-                // Remove "<details>...</details>" portion from the changelog
-                let cleanChangelog = data.body.replace(/<details>[\s\S]*?<\/details>/g, '');
-
                 // Remove everything after "***"
-                const endIndex = cleanChangelog.indexOf('***');
+                const endIndex = data.body.indexOf('***');
                 if (endIndex !== -1) {
-                    cleanChangelog = cleanChangelog.substring(0, endIndex);
+                    cleanChangelog = data.body.substring(0, endIndex);
                 }
 
-                // Split the changelog text by newline and remove the first element
-                const changelogLines = cleanChangelog.split('\n');
-                changelogLines.shift(); // Remove the first line containing "## ChangeLog - "
+                // Split the changelog text by newline
+                let changelogLines = cleanChangelog.split('\n');
 
-                const htmlChangelog = changelogLines.join('<br>');
+                // Find the index of the line that contains "## Changelog"
+                const changelogIndex = changelogLines.findIndex(line => line.toLowerCase().includes('changelog'));
+
+                // Remove everything above/including "## Changelog"
+                if (changelogIndex !== -1) {
+                    changelogLines = changelogLines.slice(changelogIndex + 1);
+                }
+
+                let htmlChangelog = changelogLines.join('<br>');
 
                 // Convert markdown links to HTML links
-                const finalHtmlChangelog = htmlChangelog.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2">$1</a>');
+                htmlChangelog = htmlChangelog.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2">$1</a>')
+
+                // Replace multiple linebreaks with one
+                const finalHtmlChangelog = htmlChangelog.replace(/<\s*\/?\s*br\s*\/?\s*>\s*<\s*\/?\s*br\s*\/?\s*>/gi, "<br>");
 
                 // Update download button with latest release URL
                 const downloadButton = document.getElementById(downloadButtonId);
                 downloadButton.href = downloadUrl;
 
                 // Update HTML content with latest version and changelog
-                changelogElement.innerHTML = `<strong>Version ${latestVersion} </strong><strong>Changelog:</strong><br>${finalHtmlChangelog}`;
+                changelogElement.innerHTML = `<strong>Version ${latestVersion} </strong><strong>Changelog:<br></strong><br>${finalHtmlChangelog}`;
             } catch (error) {
                 console.error('Error fetching changelog:', error);
             }
