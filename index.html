@@ -247,22 +247,39 @@
     </script>
     <script>
         async function fetchChangelog(repo, elementId, downloadButtonId) {
-            const url = `https://api.github.com/repos/SpotCompiled/${repo}/releases/latest`;
+            const ghUrl = `https://api.github.com/repos/SpotCompiled/${repo}/releases/latest`;
+            let sourceUrl = `https://raw.githubusercontent.com/SpotCompiled/SpotC-Repo/refs/heads/main/Scarlet%20Repo.json`;
             try {
-                const response = await fetch(url);
-                const data = await response.json();
+                const ghResponse = await fetch(ghUrl);
+                const ghData = await ghResponse.json();
                 const changelogElement = document.getElementById(elementId);
 
+                if (repo === 'SpotilifeC') {
+                    sourceUrl = `https://raw.githubusercontent.com/SpotCompiled/SpotC-Repo/refs/heads/main/AltStore%20Repo.json`;
+                }
+
+                const sourceResponse = await fetch(sourceUrl);
+                const sourceData = await sourceResponse.json();
+
+                let app = "";
+                if (repo === 'SpotC-Plus-Plus') {
+                    app = sourceData.apps.find(app => app.name === 'SpotC++');
+                } else if (repo === 'SpotveeC') {
+                    app = sourceData.apps.find(app => app.name === 'SpotveeC');
+                } else if (repo === 'SpotilifeC') {
+                    app = sourceData.apps.find(app => app.name === 'SpotilifeC');
+                }
+
                 // Extract latest version
-                const latestVersion = data.tag_name;
+                const latestVersion = ghData.tag_name;
 
                 // Extract download URL for IPA file
-                const downloadUrl = data.assets.find(asset => asset.name.endsWith('.ipa') && !asset.name.includes('ALTSTORE')).browser_download_url;
+                const downloadUrl = app.downloadURL;
 
                 // Remove everything after "***"
-                const endIndex = data.body.indexOf('***');
+                const endIndex = ghData.body.indexOf('***');
                 if (endIndex !== -1) {
-                    cleanChangelog = data.body.substring(0, endIndex);
+                    cleanChangelog = ghData.body.substring(0, endIndex);
                 }
 
                 // Split the changelog text by newline
