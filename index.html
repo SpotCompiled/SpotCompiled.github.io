@@ -6,242 +6,323 @@
     <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/SpotCompiled/.github/main/SpotC%20Icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/SpotCompiled/.github/main/SpotC%20Icon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/SpotCompiled/.github/main/SpotC%20Icon.png">
-    <link rel="manifest" href="https://raw.githubusercontent.com/SpotCompiled/.github/main/SpotC%20Icon.png">
-    <link rel="mask-icon" href="https://raw.githubusercontent.com/SpotCompiled/.github/main/SpotC%20Icon.png" color="#5bbad5">
+    <link rel="mask-icon" href="https://raw.githubusercontent.com/SpotCompiled/.github/main/SpotC%20Icon.png" color="#1DB954">
     <link rel="shortcut icon" href="https://raw.githubusercontent.com/SpotCompiled/.github/main/SpotC%20Icon.png">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-config" content="https://raw.githubusercontent.com/SpotCompiled/.github/main/SpotC%20Icon.png">
+    <meta name="msapplication-TileColor" content="#000000">
     <meta name="theme-color" content="#ffffff">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpotCompiled</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --background: #ffffff;
+            --foreground: #000000;
+            --card: #ffffff;
+            --card-foreground: #000000;
+            --primary: #1DB954;
+            --primary-foreground: #ffffff;
+            --secondary: #f4f4f5; /* Fallback */
+            --secondary-foreground: #000000;
+            --muted-foreground: rgba(0, 0, 0, 0.6);
+            --border: rgba(0, 0, 0, 0.1);
+            --radius: 0.5rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: #000000;
+                --foreground: #ffffff;
+                --card: #000000;
+                --card-foreground: #ffffff;
+                --primary: #1DB954;
+                --primary-foreground: #000000;
+                --secondary: rgba(255, 255, 255, 0.1);
+                --secondary-foreground: #ffffff;
+                --muted-foreground: rgba(255, 255, 255, 0.6);
+                --border: rgba(255, 255, 255, 0.2);
+            }
+        }
+        
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #1DB954, #1ED760);
-            color: #333;
+            border: 0 solid var(--border);
         }
 
-        .fancy-button {
-            background-color: #179744;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.3s, color 0.3s;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-
-        .fancy-button:hover {
-            background-color: #1dda63;
-            color: #fff;
-        }
-
-        .jump-button {
-            background-color: #179744;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.3s;
-        }
-
-        .jump-button:hover {
-            background-color: #1dda63;
-        }
-
+        
         .header {
-            background: #191414;
-            color: white;
-            padding: 20px;
+            background: #000000;
+            color: #ffffff;
+            padding: 4rem 1.5rem 3rem;
             text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.75rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.125rem;
+        }
+        
+        .header .jump-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
         }
 
         .container {
-            padding: 20px;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
         .section {
-            margin: 20px 0;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: var(--card);
+            color: var(--card-foreground);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
         }
-
+        
         .section h2 {
-            margin-top: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.025em;
         }
-
-        .links {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(calc(33.333% - 40px), 1fr));
-            grid-gap: 20px;
-        }
-
-        .link-item {
+        
+        .button {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            padding: 0.75rem 1.25rem;
             text-align: center;
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            transition: box-shadow 0.3s;
-            position: relative;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: var(--radius);
+            transition: opacity 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        
+        .button:hover {
+            opacity: 0.85;
+        }
+        
+        .button.secondary {
+            background-color: var(--secondary);
+            color: var(--secondary-foreground);
+            border-color: var(--border);
+        }
+        
+        .button.secondary:hover {
+            background-color: var(--border);
         }
 
-        @media (max-width: 1000px) {
-            .links {
-                grid-template-columns: repeat(auto-fill, minmax(calc(50% - 40px), 1fr));
-            }
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
         }
 
-        @media (max-width: 675px) {
-            .links {
-                grid-template-columns: repeat(auto-fill, minmax(calc(100% - 40px), 1fr));
-            }
+        .app-card {
+            text-align: center;
+            background: var(--card);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .app-card:hover {
+            border-color: var(--primary);
         }
 
-        .link-item:hover {
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        .app-card img.icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 1rem;
+            margin: 0 auto;
         }
 
-        .link-item img {
-            width: 100px;
-            height: 100px;
-            border-radius: 20%;
+        .app-card h3 {
+            margin: 1rem 0 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
         }
-
-        .link-item h3 {
-            margin: 10px 0 5px;
+        
+        .app-card p {
+            color: var(--muted-foreground);
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .app-card .button {
+            width: 100%;
         }
 
         .notice {
-            color: red;
-            font-weight: bold;
+            color: #f5c518; /* A non-red notice color for contrast */
+            font-weight: 500;
+            font-size: 0.9rem;
+            background-color: rgba(245, 197, 24, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            border: 1px solid rgba(245, 197, 24, 0.2);
+            margin-top: -1rem;
+            margin-bottom: 1.5rem;
         }
 
         .screenshots {
             display: flex;
             overflow-x: auto;
-            overflow-y: hidden;
-            margin: 10px 0;
-            height: 500px;
+            gap: 1rem;
+            margin: 1rem 0;
+            height: 350px;
+            padding-bottom: 1rem;
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
         }
 
+        .screenshots::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        
         .screenshots img {
-            height: 500px;
-            width: 450px;
-            margin-right: 10px;
-            border-radius: 10% !important;
+            height: 100%;
+            width: auto;
+            border-radius: var(--radius);
+            flex-shrink: 0;
         }
 
         .changelog {
-            background: #f0f0f0;
-            padding: 10px;
-            border-radius: 8px;
+            background: var(--secondary);
+            color: var(--muted-foreground);
+            padding: 1rem;
+            border-radius: calc(var(--radius) - 2px);
             text-align: left;
             font-size: 0.9em;
+            margin: 1.5rem 0;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+        }
+        
+        .changelog a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .changelog a:hover {
+            text-decoration: underline;
         }
 
-        .credits {
+        #credits-section ul, #adding-section ol {
+            padding-left: 1.25rem;
+            margin-top: 1rem;
+        }
+        
+        #credits-section li, #adding-section li {
+            margin-bottom: 0.5rem;
+            color: var(--muted-foreground);
+        }
+        
+        #credits-section li a, #adding-section a, #adding-section code {
+            color: var(--foreground);
+            font-weight: 500;
+            text-decoration: none;
+        }
+        #adding-section code {
+            font-family: monospace;
+            background-color: var(--secondary);
+            padding: 0.15rem 0.3rem;
+            border-radius: 0.25rem;
             font-size: 0.9em;
-            color: #555;
         }
 
-        #disclaimer-section {
-            background: #111213;
-            padding: 20px;
-            text-align: left;
-            font-size: 0.9em;
-            color: #555;
-            margin-top: 20px;
-            border-radius: 0;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        #credits-section li a:hover, #adding-section a:hover {
+            text-decoration: underline;
+        }
+        
+        #adding-section h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
         }
 
-        #disclaimer-section p {
-            margin: 0;
+        .footer {
+            padding: 2rem 1.5rem;
+            text-align: center;
+            font-size: 0.85em;
+            color: var(--muted-foreground);
+            margin-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer p {
+            margin: 0 auto;
+            max-width: 800px;
         }
 
         .github-icon {
-                position: absolute;
-                top: 10px;
-                left: 10px;
-            }
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+        }
             
         .github-icon img {
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
+            transition: transform 0.2s, opacity 0.2s;
+            opacity: 0.7;
+        }
+        
+        .github-icon:hover img {
+            transform: scale(1.1);
+            opacity: 1;
         }
 
         @media (prefers-color-scheme: dark) {
-            body {
-                background: linear-gradient(135deg, #0b3d2e, #146b48);
-                color: #ddd;
-            }
-
-            .header {
-                background: #000000;
-                color: #fff;
-            }
-
-            .section {
-                background: #212121;
-                color: #fff;
-                box-shadow: 0 0 10px rgba(66, 66, 66, 0.5);
-            }
-
-            .link-item {
-                background: #303030;
-                color: #ddd;
-            }
-
-            .fancy-button {
-                background-color: #1da86d;
-                color: #fff;
-            }
-
-            .jump-button {
-                background-color: #1da86d;
-                color: #fff;
-            }
-
-            .changelog {
-                background: #111111;
-                color: #ddd;
-            }
-
-            .credits {
-                color: #aaa;
-            }
-
-            #disclaimer-section {
-                background: #000000;
-                color: #aaa;
+            #github-icon-img {
+                background-color: #fff;
             }
         }
     </style>
     <script>
-        // JavaScript function to handle smooth scrolling
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
             if (section) {
-                section.scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const yOffset = -20; 
+                const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({top: y, behavior: 'smooth'});
             }
         }
     </script>
@@ -270,186 +351,154 @@
                     app = sourceData.apps.find(app => app.name === 'SpotilifeC');
                 }
 
-                // Extract latest version
                 const latestVersion = ghData.tag_name;
-
-                // Extract download URL for IPA file
                 const downloadUrl = app.downloadURL;
+                let cleanChangelog = ghData.body;
 
-                // Remove everything after "***"
                 const endIndex = ghData.body.indexOf('***');
                 if (endIndex !== -1) {
                     cleanChangelog = ghData.body.substring(0, endIndex);
                 }
 
-                // Split the changelog text by newline
                 let changelogLines = cleanChangelog.split('\n');
 
-                // Find the index of the line that contains "## Changelog"
                 const changelogIndex = changelogLines.findIndex(line => line.toLowerCase().includes('changelog'));
 
-                // Remove everything above/including "## Changelog"
                 if (changelogIndex !== -1) {
                     changelogLines = changelogLines.slice(changelogIndex + 1);
                 }
 
                 let htmlChangelog = changelogLines.join('<br>');
 
-                // Convert markdown links to HTML links
                 htmlChangelog = htmlChangelog.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2">$1</a>')
 
-                // Replace multiple linebreaks with one
                 const finalHtmlChangelog = htmlChangelog.replace(/<\s*\/?\s*br\s*\/?\s*>\s*<\s*\/?\s*br\s*\/?\s*>/gi, "<br>");
 
-                // Update download button with latest release URL
                 const downloadButton = document.getElementById(downloadButtonId);
                 downloadButton.href = downloadUrl;
 
-                // Update HTML content with latest version and changelog
                 changelogElement.innerHTML = `<strong>Version ${latestVersion} </strong><strong>Changelog:<br></strong><br>${finalHtmlChangelog}`;
             } catch (error) {
-                console.error('Error fetching changelog:', error);
-            }
-        }
+                console.error('Error fetching changelog:', error);}
+                }
         document.addEventListener('DOMContentLoaded', () => {
             fetchChangelog('SpotC-Plus-Plus', 'changelog-spotcpp', 'download-button-spotcpp');
             fetchChangelog('SpotveeC', 'changelog-spotveec', 'download-button-spotveec');
             fetchChangelog('SpotilifeC', 'changelog-spotilifec', 'download-button-spotilifec');
         });
     </script>
-
-
-
 </head>
 
 <body>
-    <a href="https://github.com/SpotCompiled" class="github-icon" target="_blank">
-        <img id="github-icon-img" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
-    </a>
     
-    <div class="header">
+    <header class="header">
+        <a href="https://github.com/SpotCompiled" class="github-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository">
+            <img id="github-icon-img" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+        </a>
         <h1>SpotCompiled</h1>
-        <p>Compiled Spotify IPAs with enhanced features</p>
-        <button class="jump-button" onclick="scrollToSection('about-section')">About SpotCompiled</button>
-        <button class="jump-button" onclick="scrollToSection('apps-section')">Apps</button>
-        <button class="jump-button" onclick="scrollToSection('adding-section')">Adding to Sideload Apps</button>
-        <button class="jump-button" onclick="scrollToSection('credits-section')">Credits</button>
-    </div>
-
-    <div class="container">
-
-        <div class="section">
-            <div class="section" id="about-section">
-                <h2>About SpotCompiled</h2>
-                <p>SpotCompiled provides compiled Spotify IPAs with various enhancements, including ad-free experiences, unlimited skips, and more. The main projects include SpotC++, SpotveeC, and SpotilifeC.</p>
-            </div>
+        <p>Compiled Spotify IPAs with enhanced features for a better listening experience.</p>
+        <div class="jump-buttons">
+            <button class="button secondary" onclick="scrollToSection('about-section')">About</button>
+            <button class="button secondary" onclick="scrollToSection('apps-section')">Apps</button>
+            <button class="button secondary" onclick="scrollToSection('adding-section')">Add Repo</button>
+            <button class="button secondary" onclick="scrollToSection('credits-section')">Credits</button>
         </div>
+    </header>
 
-        <div class="section">
-            <div class="section" id="apps-section">
-                <h2>Apps</h2>
-                <div class="links">
-                    <div class="link-item">
-                        <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/SpotC++%20AppIcon.png" alt="SpotC++ Icon">
-                        <h3>SpotC++</h3>
-                        <p>The ultimate compilation of Spotify enhancements.</p>
-                        <a id="download-button-spotcpp" class="fancy-button" href="https://github.com/SpotCompiled/SpotC-Plus-Plus/releases/latest">Download SpotC++</a>
-                        <div class="screenshots">
-                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%201.png" alt="Screenshot 1">
-                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%202.png" alt="Screenshot 2">
-                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%203.png" alt="Screenshot 3">
-                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%204.png" alt="Screenshot 4">
-                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Sposify%20Settings%201.png" alt="Settings Screenshot 1">
-                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Sposify%20Settings%202.png" alt="Settings Screenshot 2">
-                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Sposify%20Car%20Mode.png" alt="Car Mode Screenshot">
-                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20Playing%20SS.png" alt="Spotilife Playing Screenshot">
-                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20PlayList%20SS.png" alt="Spotilife Playlist Screenshot">
-                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20Library%20View%20SS.png" alt="Spotilife Library View Screenshot">
-                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Sposify%20Lyrics%20Screen.png" alt="Sposify Lyrics Screen Screenshot">
+    <main class="container">
+        <section class="section" id="about-section">
+            <h2>About SpotCompiled</h2>
+            <p style="color: var(--muted-foreground);">SpotCompiled provides compiled Spotify IPAs with various enhancements, including ad-free experiences, unlimited skips, and more. The main projects include SpotC++, SpotveeC, and SpotilifeC, designed to be easily sideloaded onto your device.</p>
+        </section>
 
-                        </div>
-                        <div class="changelog" id="changelog-spotcpp">Loading changelog...</div>
+        <section class="section" id="apps-section">
+            <h2>Apps</h2>
+            <div class="links-grid">
+                <div class="app-card">
+                    <img class="icon" src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/SpotC++%20AppIcon.png" alt="SpotC++ Icon">
+                    <h3>SpotC++</h3>
+                    <p>The ultimate compilation of Spotify enhancements.</p>
+                    <div class="screenshots">
+                        <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%201.png" alt="Screenshot 1">
+                        <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%202.png" alt="Screenshot 2">
+                        <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%203.png" alt="Screenshot 3">
+                        <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%204.png" alt="Screenshot 4">
+                        <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Sposify%20Settings%201.png" alt="Settings Screenshot 1">
+                        <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Sposify%20Settings%202.png" alt="Settings Screenshot 2">
                     </div>
-                    <div class="link-item">
-                        <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/SpotilifeC%20AppIcon.png" alt="SpotveeC Icon">
-                        <h3>SpotveeC</h3>
-                        <p>Experience enhanced Spotify features with SpotveeC.</p>
-                        <a id="download-button-spotveec" class="fancy-button" href="https://github.com/SpotCompiled/SpotveeC/releases/latest">Download SpotveeC</a>
-                        <div class="screenshots">
-                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%201.png" alt="Screenshot 1">
-                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%202.png" alt="Screenshot 2">
-                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%203.png" alt="Screenshot 3">
-                            <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%204.png" alt="Screenshot 4">
-                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20Playing%20SS.png" alt="Playing Screenshot">
-                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20PlayList%20SS.png" alt="Playlist Screenshot">
-                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20Library%20View%20SS.png" alt="Library View Screenshot">
-
-                        </div>
-                        <div class="changelog" id="changelog-spotveec">Loading changelog...</div>
+                    <div class="changelog" id="changelog-spotcpp">Loading changelog...</div>
+                    <a id="download-button-spotcpp" class="button" href="https://github.com/SpotCompiled/SpotC-Plus-Plus/releases/latest" target="_blank" rel="noopener noreferrer">Download SpotC++</a>
+                </div>
+                <div class="app-card">
+                    <img class="icon" src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/SpotilifeC%20AppIcon.png" alt="SpotveeC Icon">
+                    <h3>SpotveeC</h3>
+                    <p>Experience enhanced Spotify features with SpotveeC.</p>
+                    <div class="screenshots">
+                        <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%201.png" alt="Screenshot 1">
+                        <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%202.png" alt="Screenshot 2">
+                        <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%203.png" alt="Screenshot 3">
+                        <img src="https://raw.githubusercontent.com/SpotCompiled/SpotC-AltStore-Repo/main/SpotveeC%20ScreenShot%204.png" alt="Screenshot 4">
                     </div>
-                    <div class="link-item">
-                        <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/SpotilifeC%20AppIcon.png" alt="SpotilifeC Icon">
-                        <h3>SpotilifeC</h3>
-                        <p>Enjoy Spotify without ads and with unlimited skips.</p>
-                        <p class="notice">Notice: SpotilifeC is outdated. We recommend using SpotveeC instead.</p>
-                        <a id="download-button-spotilifec" class="fancy-button" href="https://github.com/SpotCompiled/SpotilifeC/releases/latest">Download SpotilifeC</a>
-                        <div class="screenshots">
-                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20Playing%20SS.png" alt="Screenshot 1">
-                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20PlayList%20SS.png" alt="Screenshot 2">
-                            <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20Library%20View%20SS.png" alt="Screenshot 3">
-                        </div>
-                        <div class="changelog" id="changelog-spotilifec">Loading changelog...</div>
+                    <div class="changelog" id="changelog-spotveec">Loading changelog...</div>
+                    <a id="download-button-spotveec" class="button" href="https://github.com/SpotCompiled/SpotveeC/releases/latest" target="_blank" rel="noopener noreferrer">Download SpotveeC</a>
+                </div>
+                <div class="app-card">
+                    <img class="icon" src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/SpotilifeC%20AppIcon.png" alt="SpotilifeC Icon">
+                    <h3>SpotilifeC</h3>
+                    <p>Enjoy Spotify without ads and with unlimited skips.</p>
+                    <p class="notice">SpotilifeC is outdated. We recommend using SpotveeC instead for the latest features and support.</p>
+                    <div class="screenshots">
+                        <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20Playing%20SS.png" alt="Screenshot 1">
+                        <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20PlayList%20SS.png" alt="Screenshot 2">
+                        <img src="https://github.com/SpotCompiled/SpotC-AltStore-Repo/raw/main/Spotilife%20Library%20View%20SS.png" alt="Screenshot 3">
                     </div>
+                    <div class="changelog" id="changelog-spotilifec">Loading changelog...</div>
+                    <a id="download-button-spotilifec" class="button" href="https://github.com/SpotCompiled/SpotilifeC/releases/latest" target="_blank" rel="noopener noreferrer">Download SpotilifeC</a>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="section">
-            <div class="section" id="adding-section">
-                <h2>Adding to AltStore/SideStore</h2>
-                <p>You can add our repository to AltStore or SideStore for automatic updates and convenience. <a href="https://spotc-repo.yodaluca.dev/AltStoreAdd">Click this link</a> to automatically add it, or follow the steps below to add it manually:</p>
+        <section class="section" id="adding-section">
+            <h2>Adding to Sideloading Apps</h2>
+            <div class="repo-instructions">
+                <h3>AltStore / SideStore</h3>
+                <p style="color: var(--muted-foreground);">You can add our repository for automatic updates. <a href="altstore://source?url=https://spotc-repo.yodaluca.dev/AltStore%20Repo.json">Click here to add the repo automatically</a>, or follow the steps below:</p>
                 <ol>
-                    <li>Tap "Sources" in the top-right corner of the Browse tab.</li>
-                    <li>Tap the "+" button and add the source URL: <a href="https://spotc-repo.yodaluca.dev/AltStore%20Repo.json">https://spotc-repo.yodaluca.dev/AltStore Repo.json</a></li>
-                    <li>Now any "SpotC" apps will show up in AltStore/SideStore under the "Browse" tab.</li>
+                    <li>In AltStore/SideStore, navigate to the "Browse" tab and tap "Sources" in the top corner.</li>
+                    <li>Tap the "+" button and enter the source URL: <code>https://spotc-repo.yodaluca.dev/AltStore Repo.json</code></li>
+                    <li>The "SpotC" apps will now appear in your browse tab for easy installation and updates.</li>
                 </ol>
             </div>
-            <div class="section" id="adding-section">
-                <h2>Adding to Scarlet/Others</h2>
-                <p>You can add my repo to Scarlet and other sideloading apps for automatic updates and conviniance, by following the steps below:</p>
+            <div class="repo-instructions">
+                <h3>Scarlet / Others</h3>
+                <p style="color: var(--muted-foreground);">Add our repo to Scarlet for automatic updates:</p>
                 <ol>
-                    <li>Press and hold the Install button in top right.</li>
-                    <li>Select "Add Repo"</li>
-                    <li>Enter the URL <a href="https://spotc-repo.yodaluca.dev/Scarlet%20Repo.json">https://spotc-repo.yodaluca.dev/Scarlet Repo.json</a></li>
-                    <li>Now any "SpotC" Apps will show up in Scarlet (or other sideloading apps) where you can install and update my apps easily from within Scarlet.</li>
+                    <li>In Scarlet, press and hold the download icon in the top right.</li>
+                    <li>Select "Manage Repos" and then "Add Repo".</li>
+                    <li>Enter the URL: <code>https://spotc-repo.yodaluca.dev/Scarlet Repo.json</code></li>
+                    <li>SpotC apps will now be available to install and update from within the app.</li>
                 </ol>
             </div>
-        </div>
+        </section>
 
-        <div class="section credits">
-            <div class="section" id="credits-section">
-                <h2>Credits</h2>
-                <p>Special thanks to the following for their contributions:</p>
-                <ul>
-                    <li><a href="https://armconverter.com/decryptedappstore/us/spotify">IOS God's Dycrypted App Store</a> and <a href="https://appdb.to/app/ios/324684580">AppDB</a> - <em>Dycrypted Vanilla Spotify IPA</em></li>
-                    <li><a href="https://julio.hackyouriphone.org/">julioverne-  Spotilife</a> - <em>For Spotilife tweaked .deb</em></li>
-                    <li><a href="https://github.com/whoeevee/EeveeSpotify">Whoeevee-  EeveeSpotify</a> - <em>For EeveeSpotify tweaked .deb</em></li>
-                    <li><a href="https://repo.dynastic.co/package/com.spos">aesthyrica- Sposify</a> - <em>For Sposify tweaked  .deb</em></li>
-                    <li><a href="https://chariz.com/get/orion-runtime14">Theos Team-  Orion Runtime (iOS 14 - 16)</a> - <em>For Orion Runtime (iOS 14 - 16) tweaked .deb</em></li>
-                    <li><a href="https://github.com/apple/swift-protobuf">Apple inc.-  Swift Protobuf</a></li>
-                    <li><a href="https://level3tjg.me/repo/">level3tjg- Sposify Fix</a> - <em>For Sposify Fix tweaked  .deb</em></li>
-                    <li><a href="https://appdb.to/app/cydia/1900000540">Am1nCmd- Spotify++</a> - <em>For ScreenShots</em></li>
-                    <li><a href="https://github.com/RobyRew">@RobyRew</a> - <em>For helping me setup a lot of things</em></li>
-                </ul>
-            </div>
-        </div>
+        <section class="section" id="credits-section">
+            <h2>Credits</h2>
+            <p style="color: var(--muted-foreground);">Special thanks to the following projects and individuals for their contributions:</p>
+            <ul>
+                <li><a href="https://armconverter.com/decryptedappstore/us/spotify" target="_blank" rel="noopener noreferrer">IOS God's Decrypted App Store</a> & <a href="https://appdb.to/app/ios/324684580" target="_blank" rel="noopener noreferrer">AppDB</a> - <em>Decrypted Vanilla Spotify IPA</em></li>
+                <li><a href="https://julio.hackyouriphone.org/" target="_blank" rel="noopener noreferrer">julioverne</a> - <em>For Spotilife</em></li>
+                <li><a href="https://github.com/whoeevee/EeveeSpotify" target="_blank" rel="noopener noreferrer">Whoeevee</a> - <em>For EeveeSpotify</em></li>
+                <li><a href="https://repo.dynastic.co/package/com.spos" target="_blank" rel="noopener noreferrer">aesthyrica</a> - <em>For Sposify</em></li>
+                <li><a href="https://level3tjg.me/repo/" target="_blank" rel="noopener noreferrer">level3tjg</a> - <em>For Sposify Fix</em></li>
+                <li><a href="https://appdb.to/app/cydia/1900000540" target="_blank" rel="noopener noreferrer">Am1nCmd</a> - <em>For Screenshots</em></li>
+                <li><a href="https://github.com/RobyRew" target="_blank" rel="noopener noreferrer">@RobyRew</a> - <em>For helping setup a lot of things</em></li>
+            </ul>
+        </section>
+    </main>
 
-
-    </div>
-    <div id="disclaimer-section">
-        <p>We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with any other company, agency, or government agency. All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.</p>
-    </div>
+    <footer class="footer">
+        <p>We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with Spotify or any of its subsidiaries or affiliates. All product and company names are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them.</p>
+    </footer>
 
 </body>
-
 </html>
